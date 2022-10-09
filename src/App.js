@@ -1,63 +1,63 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [temperatureValue, setTemperatureValue] = useState(68);
-  const [increaseTempIntervalId, setIncreaseTempIntervalId] = useState(0)
-  const [decreaseTempIntervalId, setDecreaseTempIntervalId] = useState(0)
-  const [temperatureColor, setTemperatureColor] = useState("cold")
+  const [tempVal, setTempVal] = useState(68);
+  const [incTempIntervalId, setIncTempIntervalId] = useState(0)
+  const [decTempIntervalId, setDecTempIntervalId] = useState(0)
+  const [tempColor, setTempColor] = useState("cold")
   
-  const increaseTemperature = () => {
-    console.log(temperatureValue)
-    if(temperatureValue > 84){
-      clearInterval(increaseTempIntervalId)
+  const increaseTemp = () => {
+    console.log(tempVal)
+    if(tempVal > 84){
+      clearInterval(incTempIntervalId)
       return
     }
-    if(temperatureValue > 77){
-      setTemperatureColor("hot")
+    if(tempVal > 77){
+      setTempColor("hot")
     }
-    setTemperatureValue(temperatureValue + 1)
-    setIncreaseTempIntervalId(setInterval(() => {
-      setTemperatureValue(temperature => {
-        const newTemperature = temperature + 1
-        if(newTemperature > 84){
+    setTempVal(tempVal + 1)
+    setIncTempIntervalId(setInterval(() => {
+      setTempVal(temp => {
+        const newTemp = temp + 1
+        if(newTemp > 84){
           return 85
         }
-        if(newTemperature > 77){
-          setTemperatureColor("hot")
+        if(newTemp > 77){
+          setTempColor("hot")
         }
-        return newTemperature
+        return newTemp
       })
     }, 200));
   }
 
-  const stopIncreaseInterval = () => {
-    clearInterval(increaseTempIntervalId)
+  const stopIncInterval = () => {
+    clearInterval(incTempIntervalId)
   }
 
-  const stopDecreaseInterval = () => {
-    clearInterval(decreaseTempIntervalId)
+  const stopDecInterval = () => {
+    clearInterval(decTempIntervalId)
   }
 
-  const decreaseTemperature = () => {
-    console.log(temperatureValue)
-    if(temperatureValue < 61){
-      clearInterval(decreaseTempIntervalId)
+  const decreaseTemp = () => {
+    console.log(tempVal)
+    if(tempVal < 61){
+      clearInterval(decTempIntervalId)
       return
     }
-    if(temperatureValue < 78){
-      setTemperatureColor("cold")
+    if(tempVal < 78){
+      setTempColor("cold")
     }
-    setTemperatureValue(temperatureValue - 1)
-    setDecreaseTempIntervalId(setInterval(() => {
-      setTemperatureValue(temperature => {
-        const newTemperature = temperature - 1
-        if(newTemperature < 61){
+    setTempVal(tempVal - 1)
+    setDecTempIntervalId(setInterval(() => {
+      setTempVal(temp => {
+        const newTemp = temp - 1
+        if(newTemp < 61){
           return 60
         }
-        if(newTemperature < 78){
-          setTemperatureColor("cold")
+        if(newTemp < 78){
+          setTempColor("cold")
         }
-        return newTemperature
+        return newTemp
       })
     }, 200));
   }
@@ -65,16 +65,16 @@ const App = () => {
   return (
     <div className="app-container"
       onMouseUp={() => {
-        stopIncreaseInterval()
-        stopDecreaseInterval()
+        stopIncInterval()
+        stopDecInterval()
       }}
     >
       <div className="temperature-display-container">
-        <div className={`temperature-display ${temperatureColor}`}>{temperatureValue}°F</div>
+        <div className={`temperature-display ${tempColor}`}>{tempVal}°F</div>
       </div>
       <div className="button-container">
-        <button onMouseDown={() => increaseTemperature()}>+</button>
-        <button onMouseDown={() => decreaseTemperature()}>-</button>
+        <button onMouseDown={() => increaseTemp()}>+</button>
+        <button onMouseDown={() => decreaseTemp()}>-</button>
       </div>
     </div>
   )
